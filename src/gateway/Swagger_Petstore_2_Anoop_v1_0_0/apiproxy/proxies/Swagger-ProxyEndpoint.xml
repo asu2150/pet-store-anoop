@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="SwaggerProxyEndpoint">
+    <Description>Swagger Petstore 2 Anoop</Description>
+	<FaultRules>
+			<FaultRule name="SecurityFaultHandling">
+   			 <Step>
+     		   <Name>SecurityFaultCallout</Name>
+    		 </Step>
+   			 <Condition>((oauthV2.VerifyAccessToken.failed equals true) or ((oauthV2.VerifyAPIKey.failed equals true) or (BasicAuthentication.DecodeBasicAuthentication.failed equals true) or (oauthV2.failed equals true)))</Condition>
+			</FaultRule>
+			<FaultRule name="TrafficManagementFaultHandling">
+            	<Step>
+                	<Name>TrafficManagementFault</Name>
+            	</Step>
+            	<Condition>((ratelimit.SpikeArrest.failed equals true) or ((ratelimit.QuotaAtProductLevel.failed equals true)))</Condition>
+        	</FaultRule>
+	</FaultRules>
+	<DefaultFaultRule name="All">
+		<AlwaysEnforce>true</AlwaysEnforce>
+  		<Step>
+    		<Name>DefaultFaultCallout</Name>
+  		</Step>
+      <Step>
+          <Name>cf_log</Name>
+      </Step>
+	</DefaultFaultRule>
+	<PreFlow name="PreFlow">
+		<Request>
+    	<Step>
+  			<Name>cf_ProxyLogAggregator</Name>
+		</Step>
+        	<Step>
+                <Condition>request.verb != "OPTIONS"</Condition>
+                <Name>SpikeArrestCallout</Name>
+            </Step>
+       		<Step>
+  				<Condition>request.verb != "OPTIONS"</Condition>
+  				<Name>VerifyAccessToken</Name>
+			</Step>
+		</Request>
+		<Response>
+		</Response>
+    </PreFlow>
+    
+    <Flows>
+      	<Step>
+  			<Name>AccessControl</Name>
+		</Step>
+        <Flow name="findPets">
+          <Request>
+            <Step>
+ 				 <Name>findPets_AssignRoutingVariable</Name>
+			</Step>
+          </Request>
+		  <Response>
+		  </Response>
+		  <Condition>(proxy.pathsuffix MatchesPath &quot;/pets&quot;) and (request.verb = &quot;GET&quot;)</Condition>
+        </Flow>
+        <Flow name="addPet">
+          <Request>
+            <Step>
+ 				 <Name>addPet_AssignRoutingVariable</Name>
+			</Step>
+          </Request>
+		  <Response>
+		  </Response>
+		  <Condition>(proxy.pathsuffix MatchesPath &quot;/pets&quot;) and (request.verb = &quot;POST&quot;)</Condition>
+        </Flow>
+        <Flow name="findPetById">
+          <Request>
+            <Step>
+ 				 <Name>findPetById_AssignRoutingVariable</Name>
+			</Step>
+          </Request>
+		  <Response>
+		  </Response>
+		  <Condition>(proxy.pathsuffix MatchesPath &quot;/pets/{id}&quot;) and (request.verb = &quot;GET&quot;)</Condition>
+        </Flow>
+        <Flow name="deletePet">
+          <Request>
+            <Step>
+ 				 <Name>deletePet_AssignRoutingVariable</Name>
+			</Step>
+          </Request>
+		  <Response>
+		  </Response>
+		  <Condition>(proxy.pathsuffix MatchesPath &quot;/pets/{id}&quot;) and (request.verb = &quot;DELETE&quot;)</Condition>
+        </Flow>
+		<Flow name="unknown-resource">
+    		<Request>
+       			<Step>
+            		<Name>Unknown_Resource</Name>
+        		</Step>
+    		</Request>
+   			<Response/>
+		</Flow>
+	</Flows>
+	
+  <PostFlow name="PostFlow">
+		<Request>
+		</Request>
+		<Response>
+  			<Step>
+  				<Name>cf_log</Name>
+			</Step>
+		</Response>
+  </PostFlow>
+  <PostClientFlow>
+		<Response>
+   			<Step>
+    			<Name>cf_sys_log</Name>
+    		</Step>
+  		</Response>
+  </PostClientFlow>
+    <HTTPProxyConnection>
+        <BasePath>/api</BasePath>
+		<VirtualHost>secure</VirtualHost>
+		<VirtualHost>default</VirtualHost>
+    </HTTPProxyConnection>
+ 		<RouteRule name="Swagger Petstore 2 Anoop">
+  		 <Condition>(target.route.service = &quot;Swagger Petstore 2 Anoop&quot;)</Condition>
+  		 <TargetEndpoint>Swagger Petstore 2 Anoop</TargetEndpoint>
+ 		</RouteRule>
+</ProxyEndpoint>

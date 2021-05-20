@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TargetEndpoint name="Swagger Petstore 2 Anoop">
+    <Description>Swagger Petstore 2 Anoop</Description>
+	<FaultRules>
+	</FaultRules>
+	<DefaultFaultRule>
+	</DefaultFaultRule>
+    <PreFlow name="PreFlow">
+		<Request>
+      		<Step>
+  				<Name>cf_targetReq_LogVariableAggregator_preflow</Name>
+			</Step>
+		</Request>
+		<Response>
+		</Response>
+    </PreFlow>
+	<Flows>
+        <Flow name="findPets">
+        	<Condition>(target.route.operation = &quot;findPets&quot;)</Condition>
+			<Request>
+			</Request>
+			<Response>
+			</Response>
+        </Flow>
+        <Flow name="addPet">
+        	<Condition>(target.route.operation = &quot;addPet&quot;)</Condition>
+			<Request>
+			</Request>
+			<Response>
+			</Response>
+        </Flow>
+        <Flow name="findPetById">
+        	<Condition>(target.route.operation = &quot;findPetById&quot;)</Condition>
+			<Request>
+			</Request>
+			<Response>
+			</Response>
+        </Flow>
+        <Flow name="deletePet">
+        	<Condition>(target.route.operation = &quot;deletePet&quot;)</Condition>
+			<Request>
+			</Request>
+			<Response>
+			</Response>
+        </Flow>
+	</Flows>
+    <PostFlow name="PostFlow">
+		<Request>
+       		<Step>
+      			<Name>cf_targetVariableAggregator</Name>
+			</Step>
+		</Request>
+		<Response>
+       		<Step>
+      			<Name>cf_targetResponseVariableAggregator</Name>
+			</Step>
+		</Response>
+    </PostFlow>
+    <HTTPTargetConnection>
+    	<LoadBalancer>
+            <Server name="Swagger Petstore 2 Anoop">
+                <IsEnabled>true</IsEnabled>
+            </Server>
+        </LoadBalancer>
+        <Path>/api</Path>
+    </HTTPTargetConnection>
+</TargetEndpoint>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="1" name="SwaggerProxy">
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <Description>Swagger Petstore 2 Anoop</Description>
+    <Policies>
+    <!-- Values will be populated by deployment script -->
+    </Policies>	
+    <ProxyEndpoints>
+        <ProxyEndpoint>SwaggerProxyEndpoint</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources>
+    	<!-- Values will be populated by deployment script -->
+	</Resources>
+    <TargetServers/>
+    <TargetEndpoints>
+    	<!-- Values will be populated by deployment script -->
+		<TargetEndpoint>Petstore</TargetEndpoint>
+		<TargetEndpoint>Petstore</TargetEndpoint>
+		<TargetEndpoint>Petstore</TargetEndpoint>
+		<TargetEndpoint>Swagger_Petstore_Anoop</TargetEndpoint>
+		<TargetEndpoint>Registration</TargetEndpoint>
+		<TargetEndpoint>Registration</TargetEndpoint>
+		<TargetEndpoint>Registration</TargetEndpoint>
+		<TargetEndpoint>Registration</TargetEndpoint>
+		<TargetEndpoint>Registration</TargetEndpoint>
+		<TargetEndpoint>Registration</TargetEndpoint>
+		<TargetEndpoint>Swagger Petstore 2 Anoop</TargetEndpoint>
+    </TargetEndpoints>
+	<validate>false</validate>
+</APIProxy>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="findPets_AssignRoutingVariable">
+    <!-- Target Service name -->
+    <AssignVariable>
+        <Name>target.route.service</Name>
+        <Value>Swagger Petstore 2 Anoop</Value>
+    </AssignVariable>
+    <!-- Target  Action name -->
+    <AssignVariable>
+        <Name>target.route.operation</Name>
+        <Value>findPets</Value>
+    </AssignVariable>
+    <!-- Proxy Log Aggregator -->
+    <AssignVariable>
+        <Name>log.apiName</Name>
+        <Value>findPets</Value>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

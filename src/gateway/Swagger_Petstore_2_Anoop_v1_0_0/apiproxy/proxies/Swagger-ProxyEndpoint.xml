@@ -43,9 +43,7 @@
     </PreFlow>
     
     <Flows>
-      	<Step>
-  			<Name>AccessControl</Name>
-		</Step>
+
         <Flow name="findPets">
           <Request>
             <Step>
